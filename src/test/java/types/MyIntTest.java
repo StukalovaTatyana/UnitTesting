@@ -241,4 +241,35 @@ public class MyIntTest {
 
     }
 
+    @Test
+    public void absTest() {
+        MyInt a = new MyInt("1");
+        MyInt abs = new MyInt("1");
+        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", a.getValueString(), abs.getValueString()), a, a.abs());
+
+        a = new MyInt("-1");
+        abs = new MyInt("1");
+        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", a.getValueString(), abs.getValueString()), a, a.abs());
+
+        a = new MyInt("0");
+        abs = new MyInt("0");
+        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", a.getValueString(), abs.getValueString()), a, a.abs());
+
+        a = new MyInt("0");
+        a.setSign(1);
+        abs = new MyInt("0");
+        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", a.getValueString(), abs.getValueString()), a, a.abs());
+    }
+
+    @Test
+    public void toStringTest() {
+        MyInt a = new MyInt("12345");
+        String sign = a.getSign() == 1 ? "-" : "";
+        assertEquals("Значения не совпали!", sign + a.getValueString(), a.toString());
+
+        a = new MyInt("-12345");
+        sign = a.getSign() == 1 ? "-" : "";
+        assertEquals("Значения не совпали!", sign + a.getValueString(), a.toString());
+    }
+
 }

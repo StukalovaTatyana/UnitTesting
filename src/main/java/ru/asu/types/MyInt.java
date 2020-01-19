@@ -77,8 +77,8 @@ public class MyInt {
         return null;
     }
 
-    public MyInt abs(MyInt value) {
-        return null;
+    public MyInt abs() {
+        return new MyInt(this.valueString);
     }
 
     public MyInt compareTo(MyInt value) {
@@ -89,8 +89,9 @@ public class MyInt {
         return null;
     }
 
-    public MyInt toString(MyInt value) {
-        return null;
+    public String toString() {
+        String printedSing = this.sign == 1 ? "-" : "";
+        return printedSing + this.valueString;
     }
 
     public MyInt longValue(MyInt value) {
