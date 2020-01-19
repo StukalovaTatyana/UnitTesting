@@ -55,11 +55,13 @@ public class MyInt {
         if (this.sign == 0 && value.sign == 0) {
             return this.minus(value);
         } else if (this.sign == 0 && value.sign == 1) {
-            return null;
+            return this.sum(value);
         } else if (this.sign == 1 && value.sign == 0) {
-            return null;
+            MyInt sum = this.sum(value);
+            sum.sign = sum.sign == 0 ? 1 : 0;
+            return sum;
         } else {
-            return null;
+            return value.minus(this);
         }
     }
 

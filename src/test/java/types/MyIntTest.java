@@ -179,21 +179,65 @@ public class MyIntTest {
 
     @Test
     public void subtractPositiveToPositiveTest() {
+        MyInt a = new MyInt(124);
+        MyInt b = new MyInt(114);
+        MyInt c = new MyInt(10);
+        MyInt actual = a.subtract(b);
+        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", c.getValueString(), actual.getValueString()), c, actual);
+
+        a = new MyInt(999);
+        b = new MyInt(977);
+        c = new MyInt(22);
+        actual = a.subtract(b);
+        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", c.getValueString(), actual.getValueString()), c, actual);
 
     }
 
     @Test
     public void subtractPositiveToNegativeTest() {
+        MyInt a = new MyInt(124);
+        MyInt b = new MyInt(-114);
+        MyInt c = new MyInt(238);
+        MyInt actual = a.subtract(b);
+        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", c.getValueString(), actual.getValueString()), c, actual);
+
+        a = new MyInt(999);
+        b = new MyInt(-977);
+        c = new MyInt(1976);
+        actual = a.subtract(b);
+        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", c.getValueString(), actual.getValueString()), c, actual);
 
     }
 
     @Test
     public void subtractNegativeToPositiveTest() {
+        MyInt a = new MyInt(-124);
+        MyInt b = new MyInt(114);
+        MyInt c = new MyInt(-238);
+        MyInt actual = a.subtract(b);
+        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", c.getValueString(), actual.getValueString()), c, actual);
+
+        a = new MyInt(-999);
+        b = new MyInt(977);
+        c = new MyInt(-1976);
+        actual = a.subtract(b);
+        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", c.getValueString(), actual.getValueString()), c, actual);
 
     }
 
     @Test
     public void subtractNegativeToNegativeTest() {
+        MyInt a = new MyInt(-124);
+        MyInt b = new MyInt(-11432);
+        MyInt c = new MyInt(-11308);
+        MyInt actual = a.subtract(b);
+        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", c.getValueString(), actual.getValueString()), c, actual);
+
+        a = new MyInt(-999);
+        b = new MyInt(-977);
+        c = new MyInt(-22);
+        actual = a.subtract(b);
+        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", c.getValueString(), actual.getValueString()), c, actual);
 
     }
 
