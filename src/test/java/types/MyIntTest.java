@@ -15,6 +15,43 @@ public class MyIntTest {
     }
 
     @Test
+    public void signIntegerTest() {
+        MyInt a = new MyInt(123);
+        assertEquals("Значения не совпали", 0, a.getSign());
+
+        a = new MyInt(-13);
+        assertEquals("Значения не совпали", 1, a.getSign());
+
+        a = new MyInt(0);
+        assertEquals("Значения не совпали", 0, a.getSign());
+    }
+
+    @Test
+    public void signStringTest() {
+        MyInt a = new MyInt("123");
+        assertEquals("Значения не совпали", 0, a.getSign());
+
+        a = new MyInt("-13");
+        assertEquals("Значения не совпали", 1, a.getSign());
+
+        a = new MyInt("0");
+        assertEquals("Значения не совпали", 0, a.getSign());
+    }
+
+    @Test
+    public void signByteArrayTest() {
+        MyInt a = new MyInt("123".getBytes());
+        assertEquals("Значения не совпали", 0, a.getSign());
+
+        a = new MyInt("-13".getBytes());
+        assertEquals("Значения не совпали", 1, a.getSign());
+
+        a = new MyInt("0".getBytes());
+        assertEquals("Значения не совпали", 0, a.getSign());
+    }
+
+
+    @Test
     public void addZeroToBeginTest() {
         MyInt a = new MyInt(123);
         a.addZero(5);
@@ -60,7 +97,7 @@ public class MyIntTest {
     }
 
     @Test
-    public void addPositiveToNevativeTest() {
+    public void addPositiveToNegativeTest() {
         MyInt a = new MyInt(123);
         MyInt b = new MyInt(-3);
 

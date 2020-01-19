@@ -5,16 +5,33 @@ import java.util.Objects;
 public class MyInt {
 
     private String valueString;
+    private int sign;
 
     public MyInt(int value) {
+        if (value < 0) {
+            this.sign = 1;
+        } else {
+            this.sign = 0;
+        }
+
         this.valueString = String.valueOf(value);
     }
 
     public MyInt(String value) {
+        if (value.charAt(0) == '-') {
+            this.sign = 1;
+        } else {
+            this.sign = 0;
+        }
         this.valueString = value;
     }
 
     public MyInt(byte[] value) {
+        if (((char) value[0]) == '-') {
+            this.sign = 1;
+        } else {
+            this.sign = 0;
+        }
         this.valueString = String.valueOf(value);
     }
 
@@ -40,8 +57,8 @@ public class MyInt {
 
             int res = a + b + shift;
 
-            result.append(res%10);
-            shift = res/10;
+            result.append(res % 10);
+            shift = res / 10;
         }
         result.reverse();
         if (result.charAt(0) == '0') {
@@ -110,6 +127,14 @@ public class MyInt {
         }
         stringBuilder.append(this.valueString);
         this.valueString = stringBuilder.toString();
+    }
+
+    public int getSign() {
+        return sign;
+    }
+
+    public void setSign(int sign) {
+        this.sign = sign;
     }
 
     @Override
