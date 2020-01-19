@@ -272,4 +272,56 @@ public class MyIntTest {
         assertEquals("Значения не совпали!", sign + a.getValueString(), a.toString());
     }
 
+    @Test
+    public void minTest() {
+        MyInt a = new MyInt("12345");
+        MyInt b = new MyInt("12344");
+        assertEquals("Значения не совпали!", b, a.min(b));
+        assertEquals("Значения не совпали!", b, b.min(a));
+
+        a = new MyInt("12");
+        b = new MyInt("12");
+        assertEquals("Значения не совпали!", a, a.min(b));
+        assertEquals("Значения не совпали!", a, b.min(a));
+
+        a = new MyInt("123");
+        b = new MyInt("1456");
+        assertEquals("Значения не совпали!", a, a.min(b));
+        assertEquals("Значения не совпали!", a, b.min(a));
+
+        a = new MyInt("-123");
+        b = new MyInt("1456");
+        assertEquals("Значения не совпали!", a, a.min(b));
+        assertEquals("Значения не совпали!", a, b.min(a));
+
+        a = new MyInt("123");
+        b = new MyInt("-1456");
+        assertEquals("Значения не совпали!", b, a.min(b));
+        assertEquals("Значения не совпали!", b, b.min(a));
+
+        a = new MyInt("6666");
+        b = new MyInt("-1456");
+        assertEquals("Значения не совпали!", b, a.min(b));
+        assertEquals("Значения не совпали!", b, b.min(a));
+
+    }
+
+    @Test
+    public void maxTest() {
+        MyInt a = new MyInt("12345");
+        MyInt b = new MyInt("12344");
+        assertEquals("Значения не совпали!", a, a.max(b));
+        assertEquals("Значения не совпали!", a, b.max(a));
+
+        a = new MyInt("12");
+        b = new MyInt("12");
+        assertEquals("Значения не совпали!", a, a.max(b));
+        assertEquals("Значения не совпали!", a, b.max(a));
+
+        a = new MyInt("123");
+        b = new MyInt("1456");
+        assertEquals("Значения не совпали!", b, a.max(b));
+        assertEquals("Значения не совпали!", b, b.max(a));
+    }
+
 }

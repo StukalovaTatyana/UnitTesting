@@ -74,7 +74,31 @@ public class MyInt {
     }
 
     public MyInt min(MyInt value) {
-        return null;
+        if (this.sign != value.sign) {
+            if (this.sign == 1) {
+                return this;
+            }
+            return value;
+        }
+
+        int razn = this.valueString.length() - value.valueString.length();
+        int flag = minMax(value, razn);
+
+        MyInt min;
+        MyInt max;
+        if (flag == 0) {
+            max = this;
+            min = value;
+        } else {
+            max = value;
+            min = this;
+        }
+
+        if (this.sign == 0) {
+            return min;
+        } else {
+            return max;
+        }
     }
 
     public MyInt abs() {
@@ -135,24 +159,7 @@ public class MyInt {
     private MyInt minus(MyInt value) {
         StringBuilder result = new StringBuilder();
         int razn = this.valueString.length() - value.valueString.length();
-        int flag = 0;
-        if (razn > 0) {
-            flag = 0;
-        } else if (razn < 0) {
-            flag = 1;
-        } else {
-            for (int i = 0; i < this.valueString.length(); i++) {
-                int a = Character.getNumericValue(this.valueString.charAt(i));
-                int b = Character.getNumericValue(value.valueString.charAt(i));
-                if (a > b) {
-                    flag = 0;
-                    break;
-                } else if (a < b) {
-                    flag = 1;
-                    break;
-                }
-            }
-        }
+        int flag = minMax(value, razn);
 
         if (flag == 1) {
             this.addZero(razn);
@@ -188,6 +195,28 @@ public class MyInt {
             r.sign = 1;
         }
         return r;
+    }
+
+    private int minMax(MyInt value, int razn) {
+        int flag = 0;
+        if (razn > 0) {
+            flag = 0;
+        } else if (razn < 0) {
+            flag = 1;
+        } else {
+            for (int i = 0; i < this.valueString.length(); i++) {
+                int a = Character.getNumericValue(this.valueString.charAt(i));
+                int b = Character.getNumericValue(value.valueString.charAt(i));
+                if (a > b) {
+                    flag = 0;
+                    break;
+                } else if (a < b) {
+                    flag = 1;
+                    break;
+                }
+            }
+        }
+        return flag;
     }
 
     private void minus(String first, String second, StringBuilder result) {
