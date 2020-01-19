@@ -322,6 +322,21 @@ public class MyIntTest {
         b = new MyInt("1456");
         assertEquals("Значения не совпали!", b, a.max(b));
         assertEquals("Значения не совпали!", b, b.max(a));
+
+        a = new MyInt("-123");
+        b = new MyInt("1456");
+        assertEquals("Значения не совпали!", b, a.max(b));
+        assertEquals("Значения не совпали!", b, b.max(a));
+
+        a = new MyInt("123");
+        b = new MyInt("-1456");
+        assertEquals("Значения не совпали!", a, a.max(b));
+        assertEquals("Значения не совпали!", a, b.max(a));
+
+        a = new MyInt("6666");
+        b = new MyInt("-1456");
+        assertEquals("Значения не совпали!", a, a.max(b));
+        assertEquals("Значения не совпали!", a, b.max(a));
     }
 
 }

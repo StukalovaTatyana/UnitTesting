@@ -70,7 +70,31 @@ public class MyInt {
     }
 
     public MyInt max(MyInt value) {
-        return null;
+        if (this.sign != value.sign) {
+            if (this.sign == 1) {
+                return value;
+            }
+            return this;
+        }
+
+        int razn = this.valueString.length() - value.valueString.length();
+        int flag = minMax(value, razn);
+
+        MyInt min;
+        MyInt max;
+        if (flag == 0) {
+            max = this;
+            min = value;
+        } else {
+            max = value;
+            min = this;
+        }
+
+        if (this.sign == 0) {
+            return max;
+        } else {
+            return min;
+        }
     }
 
     public MyInt min(MyInt value) {
