@@ -6,9 +6,18 @@ public class MyInt {
 
     private String valueString;
     private int sign;
+    private final String reg = "-?[0-9]*";
 
     public MyInt(int value) {
         this.valueString = String.valueOf(value);
+        boolean regex = this.valueString.matches(reg);
+        boolean regex1 = String.valueOf(value).matches(reg);
+
+        if (!regex || !regex1){
+            System.out.println("Некорректный ввод числа");
+            this.valueString = "0";
+        }
+
         if (value < 0) {
             this.sign = 1;
             this.valueString = this.getValueString().substring(1, this.valueString.length());
@@ -19,6 +28,13 @@ public class MyInt {
 
     public MyInt(String value) {
         this.valueString = value;
+        boolean regex = this.valueString.matches(reg);
+        boolean regex1 = value.matches(reg);
+
+        if (!regex || !regex1){
+            System.out.println("Некорректный ввод числа");
+            this.valueString = "0";
+        }
         if (value.charAt(0) == '-') {
             this.sign = 1;
             this.valueString = this.getValueString().substring(1, this.valueString.length());
@@ -29,6 +45,14 @@ public class MyInt {
 
     public MyInt(byte[] value) {
         this.valueString = String.valueOf(value);
+        boolean regex = this.valueString.matches(reg);
+        boolean regex1 = String.valueOf(value).matches(reg);
+
+        if (!regex || !regex1){
+            System.out.println("Некорректный ввод числа");
+            this.valueString = "0";
+        }
+
         if (((char) value[0]) == '-') {
             this.sign = 1;
             this.valueString = this.getValueString().substring(1, this.valueString.length());

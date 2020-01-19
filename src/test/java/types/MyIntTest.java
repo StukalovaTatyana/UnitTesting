@@ -56,7 +56,6 @@ public class MyIntTest {
         assertEquals("Значения не совпали", 0, a.getSign());
     }
 
-
     @Test
     public void addZeroToBeginTest() {
         MyInt a = new MyInt(123);
@@ -238,6 +237,19 @@ public class MyIntTest {
         c = new MyInt(-22);
         actual = a.subtract(b);
         assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", c.getValueString(), actual.getValueString()), c, actual);
+
+    }
+
+    @Test
+    public void regexTest(){
+        MyInt a = new MyInt("0lkh7123");
+        assertEquals("Значения не совпали!", "0", a.getValueString());
+
+        a = new MyInt(-782110);
+        assertEquals("Значения не совпали!", "782110", a.getValueString());
+
+        a = new MyInt(782110);
+        assertEquals("Значения не совпали!", "782110", a.getValueString());
 
     }
 
