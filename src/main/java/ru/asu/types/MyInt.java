@@ -94,23 +94,93 @@ public class MyInt {
     }
 
     public MyInt max(MyInt value) {
-        return null;
+        if (this.sign != value.sign) {
+            if (this.sign == 1) {
+                return value;
+            }
+            return this;
+        }
+
+        int razn = this.valueString.length() - value.valueString.length();
+        int flag = minMax(value, razn);
+
+        MyInt min;
+        MyInt max;
+        if (flag == 0) {
+            max = this;
+            min = value;
+        } else {
+            max = value;
+            min = this;
+        }
+
+        if (this.sign == 0) {
+            return max;
+        } else {
+            return min;
+        }
     }
 
     public MyInt min(MyInt value) {
-        return null;
+        if (this.sign != value.sign) {
+            if (this.sign == 1) {
+                return this;
+            }
+            return value;
+        }
+
+        int razn = this.valueString.length() - value.valueString.length();
+        int flag = minMax(value, razn);
+
+        MyInt min;
+        MyInt max;
+        if (flag == 0) {
+            max = this;
+            min = value;
+        } else {
+            max = value;
+            min = this;
+        }
+
+        if (this.sign == 0) {
+            return min;
+        } else {
+            return max;
+        }
     }
 
     public MyInt abs() {
         return new MyInt(this.valueString);
     }
 
-    public MyInt compareTo(MyInt value) {
-        return null;
+    public int compareTo(MyInt value) {
+        if (this.sign != value.sign) {
+            if (this.sign == 1) {
+                return -1;
+            }
+            return 1;
+        }
+
+        if (this.equals(value)) {
+            return 0;
+        }
+
+        MyInt max = this.max(value);
+        if (this.equals(max)) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 
-    public MyInt gcd(MyInt value) {
-        return null;
+    public String gcd(MyInt value) {
+        if (this.valueString.equals("0")) {
+            return value.valueString;
+        } else if (value.valueString.equals("0")) {
+            return this.valueString;
+        }
+        MyInt myInt = simpleGcd(this.max(value), this.min(value));
+        return myInt.valueString;
     }
 
     public String toString() {
@@ -159,24 +229,7 @@ public class MyInt {
     private MyInt minus(MyInt value) {
         StringBuilder result = new StringBuilder();
         int razn = this.valueString.length() - value.valueString.length();
-        int flag = 0;
-        if (razn > 0) {
-            flag = 0;
-        } else if (razn < 0) {
-            flag = 1;
-        } else {
-            for (int i = 0; i < this.valueString.length(); i++) {
-                int a = Character.getNumericValue(this.valueString.charAt(i));
-                int b = Character.getNumericValue(value.valueString.charAt(i));
-                if (a > b) {
-                    flag = 0;
-                    break;
-                } else if (a < b) {
-                    flag = 1;
-                    break;
-                }
-            }
-        }
+        int flag = minMax(value, razn);
 
         if (flag == 1) {
             this.addZero(razn);
@@ -196,13 +249,21 @@ public class MyInt {
         if (flag == 0) {
             resultSign = this.sign;
         } else if (this.sign == value.sign) {
-            resultSign = Math.abs(this.sign - 1);
+            resultSign = this.sign;
         } else {
             resultSign = value.sign;
         }
 
         result.reverse();
+        this.reverse();
+        value.reverse();
 
+        if (this.valueString.charAt(0) == '0') {
+            this.valueString = this.valueString.substring(1);
+        }
+        if (value.valueString.charAt(0) == '0') {
+            value.valueString = value.valueString.substring(1);
+        }
         if (result.charAt(0) == '0') {
             result.deleteCharAt(0);
         }
@@ -212,6 +273,28 @@ public class MyInt {
             r.sign = 1;
         }
         return r;
+    }
+
+    private int minMax(MyInt value, int razn) {
+        int flag = 0;
+        if (razn > 0) {
+            flag = 0;
+        } else if (razn < 0) {
+            flag = 1;
+        } else {
+            for (int i = 0; i < this.valueString.length(); i++) {
+                int a = Character.getNumericValue(this.valueString.charAt(i));
+                int b = Character.getNumericValue(value.valueString.charAt(i));
+                if (a > b) {
+                    flag = 0;
+                    break;
+                } else if (a < b) {
+                    flag = 1;
+                    break;
+                }
+            }
+        }
+        return flag;
     }
 
     private void minus(String first, String second, StringBuilder result) {
@@ -267,11 +350,39 @@ public class MyInt {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MyInt myInt = (MyInt) o;
-        return Objects.equals(valueString, myInt.valueString);
+        return sign == myInt.sign &&
+                Objects.equals(valueString, myInt.valueString);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(valueString);
+        return Objects.hash(valueString, sign);
+    }
+
+    private MyInt simpleGcd(MyInt first, MyInt second) {
+        if (first.valueString.equals("0"))
+            return first;
+//        return simpleGcd(second, getSurplus(first, second));
+        int compare = first.compareTo(second);
+        if (compare == 1) {
+            MyInt subtract = first.subtract(second);
+            return simpleGcd(subtract, second);
+        } else if (compare == -1) {
+            MyInt subtract = second.subtract(first);
+            return simpleGcd(first, subtract);
+        } else {
+            return first;
+        }
+    }
+
+    private String getSurplus(String first, String second) {
+        int restGreater = 1;
+        while (restGreater == 1) {
+            StringBuilder result = new StringBuilder();
+            minus(first, second, result);
+            first = result.toString();
+            restGreater = first.compareTo(second);
+        }
+        return first;
     }
 }

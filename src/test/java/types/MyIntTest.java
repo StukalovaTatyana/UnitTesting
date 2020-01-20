@@ -244,20 +244,20 @@ public class MyIntTest {
     public void absTest() {
         MyInt a = new MyInt("1");
         MyInt abs = new MyInt("1");
-        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", a.getValueString(), abs.getValueString()), a, a.abs());
+        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", a.getValueString(), abs.getValueString()), abs, a.abs());
 
         a = new MyInt("-1");
         abs = new MyInt("1");
-        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", a.getValueString(), abs.getValueString()), a, a.abs());
+        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", a.getValueString(), abs.getValueString()), abs, a.abs());
 
         a = new MyInt("0");
         abs = new MyInt("0");
-        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", a.getValueString(), abs.getValueString()), a, a.abs());
+        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", a.getValueString(), abs.getValueString()), abs, a.abs());
 
         a = new MyInt("0");
         a.setSign(1);
         abs = new MyInt("0");
-        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", a.getValueString(), abs.getValueString()), a, a.abs());
+        assertEquals(MessageFormat.format("Значения не совпали! Ожидалось:{0}, пришло:{1}", a.getValueString(), abs.getValueString()), abs, a.abs());
     }
 
     @Test
@@ -282,6 +282,136 @@ public class MyIntTest {
         a = new MyInt(782110);
         assertEquals("Значения не совпали!", "782110", a.getValueString());
 
+    }
+
+    @Test
+    public void minTest() {
+        MyInt a = new MyInt("12345");
+        MyInt b = new MyInt("12344");
+        assertEquals("Значения не совпали!", b, a.min(b));
+        assertEquals("Значения не совпали!", b, b.min(a));
+
+        a = new MyInt("12");
+        b = new MyInt("12");
+        assertEquals("Значения не совпали!", a, a.min(b));
+        assertEquals("Значения не совпали!", a, b.min(a));
+
+        a = new MyInt("123");
+        b = new MyInt("1456");
+        assertEquals("Значения не совпали!", a, a.min(b));
+        assertEquals("Значения не совпали!", a, b.min(a));
+
+        a = new MyInt("-123");
+        b = new MyInt("1456");
+        assertEquals("Значения не совпали!", a, a.min(b));
+        assertEquals("Значения не совпали!", a, b.min(a));
+
+        a = new MyInt("123");
+        b = new MyInt("-1456");
+        assertEquals("Значения не совпали!", b, a.min(b));
+        assertEquals("Значения не совпали!", b, b.min(a));
+
+        a = new MyInt("6666");
+        b = new MyInt("-1456");
+        assertEquals("Значения не совпали!", b, a.min(b));
+        assertEquals("Значения не совпали!", b, b.min(a));
+
+        a = new MyInt("123");
+        b = new MyInt("-123");
+        assertEquals("Значения не совпали!", b, a.min(b));
+        assertEquals("Значения не совпали!", b, b.min(a));
+
+    }
+
+    @Test
+    public void maxTest() {
+        MyInt a = new MyInt("12345");
+        MyInt b = new MyInt("12344");
+        assertEquals("Значения не совпали!", a, a.max(b));
+        assertEquals("Значения не совпали!", a, b.max(a));
+
+        a = new MyInt("12");
+        b = new MyInt("12");
+        assertEquals("Значения не совпали!", a, a.max(b));
+        assertEquals("Значения не совпали!", a, b.max(a));
+
+        a = new MyInt("123");
+        b = new MyInt("1456");
+        assertEquals("Значения не совпали!", b, a.max(b));
+        assertEquals("Значения не совпали!", b, b.max(a));
+
+        a = new MyInt("-123");
+        b = new MyInt("1456");
+        assertEquals("Значения не совпали!", b, a.max(b));
+        assertEquals("Значения не совпали!", b, b.max(a));
+
+        a = new MyInt("123");
+        b = new MyInt("-1456");
+        assertEquals("Значения не совпали!", a, a.max(b));
+        assertEquals("Значения не совпали!", a, b.max(a));
+
+        a = new MyInt("6666");
+        b = new MyInt("-1456");
+        assertEquals("Значения не совпали!", a, a.max(b));
+        assertEquals("Значения не совпали!", a, b.max(a));
+
+        a = new MyInt("123");
+        b = new MyInt("-123");
+        assertEquals("Значения не совпали!", a, a.max(b));
+        assertEquals("Значения не совпали!", a, b.max(a));
+    }
+
+    @Test
+    public void compareToTest() {
+        MyInt a = new MyInt(12);
+        MyInt b = new MyInt(12);
+        assertEquals("Значения не совпали!", 0, a.compareTo(b));
+        assertEquals("Значения не совпали!", 0, b.compareTo(a));
+
+        a = new MyInt(-12);
+        b = new MyInt(-12);
+        assertEquals("Значения не совпали!", 0, a.compareTo(b));
+        assertEquals("Значения не совпали!", 0, b.compareTo(a));
+
+        a = new MyInt("6666");
+        b = new MyInt("1456");
+        assertEquals("Значения не совпали!", 1, a.compareTo(b));
+        assertEquals("Значения не совпали!", -1, b.compareTo(a));
+
+        a = new MyInt("-6666");
+        b = new MyInt("-123");
+        assertEquals("Значения не совпали!", -1, a.compareTo(b));
+        assertEquals("Значения не совпали!", 1, b.compareTo(a));
+
+        a = new MyInt("123");
+        b = new MyInt("-123");
+        assertEquals("Значения не совпали!", 1, a.compareTo(b));
+        assertEquals("Значения не совпали!", -1, b.compareTo(a));
+    }
+
+    @Test
+    public void gcd() {
+        MyInt a = new MyInt("123");
+        MyInt b = new MyInt("123");
+        String gcd = a.gcd(b);
+        assertEquals("Значения не совпали!", "123", gcd);
+        gcd = b.gcd(a);
+        assertEquals("Значения не совпали!", "123", gcd);
+
+        a = new MyInt("15");
+        b = new MyInt("80");
+        assertEquals("Значения не совпали!", "5", a.gcd(b));
+        assertEquals("Значения не совпали!", "5", b.gcd(a));
+
+        a = new MyInt("0");
+        b = new MyInt("80");
+        assertEquals("Значения не совпали!", "80", a.gcd(b));
+        assertEquals("Значения не совпали!", "80", b.gcd(a));
+
+        a = new MyInt("80");
+        b = new MyInt("0");
+        assertEquals("Значения не совпали!", "80", a.gcd(b));
+        assertEquals("Значения не совпали!", "80", b.gcd(a));
     }
 
 }
