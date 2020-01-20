@@ -272,7 +272,7 @@ public class MyIntTest {
     }
 
     @Test
-    public void regexTest(){
+    public void regexTest() {
         MyInt a = new MyInt("0lkh7123");
         assertEquals("Значения не совпали!", "0", a.getValueString());
 
@@ -414,4 +414,52 @@ public class MyIntTest {
         assertEquals("Значения не совпали!", "80", b.gcd(a));
     }
 
+    @Test
+    public void multiplyTest() {
+        MyInt a = new MyInt("80");
+        MyInt b = new MyInt("2");
+        MyInt c = new MyInt("160");
+        assertEquals("Значения не совпали!", c, a.multiply(b));
+        assertEquals("Значения не совпали!", c, b.multiply(a));
+
+
+        a = new MyInt("123");
+        b = new MyInt("321");
+        c = new MyInt("39483");
+        assertEquals("Значения не совпали!", c, a.multiply(b));
+        assertEquals("Значения не совпали!", c, b.multiply(a));
+
+        a = new MyInt("-11");
+        b = new MyInt("11");
+        c = new MyInt("-121");
+        assertEquals("Значения не совпали!", c, a.multiply(b));
+        assertEquals("Значения не совпали!", c, b.multiply(a));
+
+        a = new MyInt("11");
+        b = new MyInt("-11");
+        c = new MyInt("-121");
+        assertEquals("Значения не совпали!", c, a.multiply(b));
+        assertEquals("Значения не совпали!", c, b.multiply(a));
+
+        a = new MyInt("-11");
+        b = new MyInt("-11");
+        c = new MyInt("121");
+        assertEquals("Значения не совпали!", c, a.multiply(b));
+        assertEquals("Значения не совпали!", c, b.multiply(a));
+
+        a = new MyInt("-2837");
+        b = new MyInt("-273");
+        c = new MyInt("774501");
+        assertEquals("Значения не совпали!", c, a.multiply(b));
+        assertEquals("Значения не совпали!", c, b.multiply(a));
+    }
+
+    @Test
+    public void ts() {
+        MyInt a = new MyInt("-2837");
+        MyInt b = new MyInt("-273");
+        MyInt c = new MyInt("774501");
+        assertEquals("Значения не совпали!", c, a.multiply(b));
+        assertEquals("Значения не совпали!", c, b.multiply(a));
+    }
 }

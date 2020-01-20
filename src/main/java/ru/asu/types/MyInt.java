@@ -90,7 +90,45 @@ public class MyInt {
     }
 
     public MyInt multiply(MyInt value) {
-        return null;
+        MyInt result = new MyInt("0");
+
+        this.reverse();
+        value.reverse();
+
+        int shift = 0;
+        StringBuilder zeros = new StringBuilder();
+        for (int i = 0; i < this.valueString.length(); i++) {
+            StringBuilder res = new StringBuilder();
+            res.append(zeros.toString());
+            for (int j = 0; j < value.valueString.length(); j++) {
+                int a = Character.getNumericValue(this.valueString.charAt(i));
+                int b = Character.getNumericValue(value.valueString.charAt(j));
+                int x = a * b + shift;
+
+                res.append(x%10);
+                shift = x/10;
+            }
+            if (shift != 0) {
+                res.append(shift);
+            }
+            shift = 0;
+            zeros.append("0");
+
+            res.reverse();
+            result = result.sum(new MyInt(res.toString()));
+        }
+        this.reverse();
+        value.reverse();
+        if (result.valueString.charAt(0) == '0') {
+            result.valueString = result.valueString.substring(1);
+        }
+        if (this.sign + value.sign == 1) {
+            result.sign = 1;
+        }
+        return result;
+        /*result = new StringBuilder(dropZero(result));
+        if (myIntSign != signSecond && !String.valueOf(result).equals("0")) result.insert(0, '-');
+        return String.valueOf(result);*/
     }
 
     public MyInt max(MyInt value) {
