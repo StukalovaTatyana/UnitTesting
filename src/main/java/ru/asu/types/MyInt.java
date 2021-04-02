@@ -4,17 +4,18 @@ import java.util.Objects;
 
 public class MyInt {
 
+    private static final String WRONG_INPUT_NUMBER = "Некорректный ввод числа";
+    private static final String REG = "-?[0-9]*";
     private String valueString;
     private int sign;
-    private final String reg = "-?[0-9]*";
 
     public MyInt(int value) {
         this.valueString = String.valueOf(value);
-        boolean regex = this.valueString.matches(reg);
-        boolean regex1 = String.valueOf(value).matches(reg);
+        boolean regex = this.valueString.matches(REG);
+        boolean regex1 = String.valueOf(value).matches(REG);
 
         if (!regex || !regex1){
-            System.out.println("Некорректный ввод числа");
+            System.out.println(WRONG_INPUT_NUMBER);
             this.valueString = "0";
         }
 
@@ -28,11 +29,11 @@ public class MyInt {
 
     public MyInt(String value) {
         this.valueString = value;
-        boolean regex = this.valueString.matches(reg);
-        boolean regex1 = value.matches(reg);
+        boolean regex = this.valueString.matches(REG);
+        boolean regex1 = value.matches(REG);
 
         if (!regex || !regex1){
-            System.out.println("Некорректный ввод числа");
+            System.out.println(WRONG_INPUT_NUMBER);
             this.valueString = "0";
         }
         if (value.charAt(0) == '-') {
@@ -45,11 +46,11 @@ public class MyInt {
 
     public MyInt(byte[] value) {
         this.valueString = String.valueOf(value);
-        boolean regex = this.valueString.matches(reg);
-        boolean regex1 = String.valueOf(value).matches(reg);
+        boolean regex = this.valueString.matches(REG);
+        boolean regex1 = String.valueOf(value).matches(REG);
 
         if (!regex || !regex1){
-            System.out.println("Некорректный ввод числа");
+            System.out.println(WRONG_INPUT_NUMBER);
             this.valueString = "0";
         }
 
@@ -126,9 +127,6 @@ public class MyInt {
             result.sign = 1;
         }
         return result;
-        /*result = new StringBuilder(dropZero(result));
-        if (myIntSign != signSecond && !String.valueOf(result).equals("0")) result.insert(0, '-');
-        return String.valueOf(result);*/
     }
 
     public MyInt max(MyInt value) {
@@ -139,7 +137,7 @@ public class MyInt {
             return this;
         }
 
-        int razn = this.valueString.length() - value.valueString.length();
+        int razn = getRazn(value);
         int flag = minMax(value, razn);
 
         MyInt min;
@@ -167,7 +165,7 @@ public class MyInt {
             return value;
         }
 
-        int razn = this.valueString.length() - value.valueString.length();
+        int razn = getRazn(value);
         int flag = minMax(value, razn);
 
         MyInt min;
@@ -185,6 +183,10 @@ public class MyInt {
         } else {
             return max;
         }
+    }
+
+    private int getRazn(MyInt value) {
+        return this.valueString.length() - value.valueString.length();
     }
 
     public MyInt abs() {
@@ -226,14 +228,10 @@ public class MyInt {
         return printedSing + this.valueString;
     }
 
-    public MyInt longValue(MyInt value) {
-        return null;
-    }
-
     private MyInt sum(MyInt value) {
         StringBuilder result = new StringBuilder();
 
-        int razn = this.valueString.length() - value.valueString.length();
+        int razn = getRazn(value);
         this.valueString = "0" + this.valueString;
         value.valueString = "0" + value.valueString;
         if (razn > 0) {
@@ -260,13 +258,12 @@ public class MyInt {
             result.deleteCharAt(0);
         }
 
-        MyInt r = new MyInt(result.toString());
-        return r;
+        return new MyInt(result.toString());
     }
 
     private MyInt minus(MyInt value) {
         StringBuilder result = new StringBuilder();
-        int razn = this.valueString.length() - value.valueString.length();
+        int razn = getRazn(value);
         int flag = minMax(value, razn);
 
         if (flag == 1) {
@@ -400,7 +397,6 @@ public class MyInt {
     private MyInt simpleGcd(MyInt first, MyInt second) {
         if (first.valueString.equals("0"))
             return first;
-//        return simpleGcd(second, getSurplus(first, second));
         int compare = first.compareTo(second);
         if (compare == 1) {
             MyInt subtract = first.subtract(second);
